@@ -1,3 +1,9 @@
 {
-  "name": "hardhat-project"
+  "name": "dappsage-broadcasting-app",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.3",
+    "@types/chai": "^4.3.4",
+    "chai": "^4.3.7",
+    "dotenv": "^16.0.3"
+  }
 }
