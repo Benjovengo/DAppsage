@@ -19,3 +19,9 @@ DAppsage offers a range of features to content creators, including:
 - Transparent Monetization: DAppsage offers a transparent monetization model where content creators receive fair compensation for their work, based on user engagement and contribution.
 
 Overall, DAppsage is a powerful tool that can help content creators and journalists maintain their independence and integrity in the face of censorship and media manipulation. The open-source nature of the project makes it accessible to anyone who wants to contribute to building a more free and open society.
+
+## Blockchain Development Overview
+
+**Audit-ready smart contracts.**
+
+- The project is documented using the NatSpec convention, tested using Slither, Echidna and Manticore.
