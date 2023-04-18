@@ -1,4 +1,6 @@
-const listBucketContents = require("../scripts/util/4everland")
+//const listBucketContents = require("../scripts/util/4everland")
+const { listBucketContents, uploadFile4EverLand } = require("../scripts/util/4everland")
+
 
 const { expect } = require("chai");
 const { ethers } = require('hardhat')
@@ -28,6 +30,7 @@ describe("Message Data Storage", function () {
     })
 
     it('4everland interaction.', async () => {
+        await uploadFile4EverLand()
         const result = await listBucketContents()
         console.log(result)
     })
