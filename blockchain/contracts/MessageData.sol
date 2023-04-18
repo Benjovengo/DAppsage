@@ -11,7 +11,7 @@ pragma solidity ^0.8.18;
  * @custom:security Use this contract only for tests! Do NOT store any real information in this project!
  * @custom:security-contact fabio.benjovengo@gmail.com
  */
-contract MessagesData {
+contract MessageData {
     /**
      * State Variables
      */
