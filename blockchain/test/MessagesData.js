@@ -1,5 +1,8 @@
+const listBucketContents = require("../scripts/util/4everland")
+
 const { expect } = require("chai");
 const { ethers } = require('hardhat')
+
 
 describe("Message Data Storage", function () {
     // variables declaration
@@ -22,5 +25,10 @@ describe("Message Data Storage", function () {
         expect(result).to.not.equal('')
         expect(result).to.not.equal('0x')
         expect(result).to.not.equal(ethers.constants.AddressZero)
+    })
+
+    it('4everland interaction.', async () => {
+        const result = await listBucketContents()
+        console.log(result)
     })
 });
