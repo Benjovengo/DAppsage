@@ -1,4 +1,4 @@
-require("@nomicfoundation/hardhat-toolbox");
+require('@nomicfoundation/hardhat-toolbox')
 
 module.exports = {
   solidity: {
@@ -10,4 +10,4 @@ module.exports = {
       }
     }
   }
-};
+}
