@@ -27,6 +27,6 @@ describe('Message Data Storage', function () {
   it('4everland interaction.', async () => {
     await uploadFile4EverLand()
     const result = await listBucketContents()
-    console.log(result)
+    expect(result.Contents.length).to.not.equal(0)
   })
 })
