@@ -1,6 +1,8 @@
 {
   "name": "dappsage-broadcasting-app",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.315.0",
+    "@aws-sdk/lib-storage": "^3.315.0",
     "@openzeppelin/contracts": "^4.8.3",
     "@types/chai": "^4.3.4",
     "chai": "^4.3.7",
