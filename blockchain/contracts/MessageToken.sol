@@ -23,9 +23,17 @@ contract MessageToken is ERC721URIStorage {
     /// allow to create an enumerable ERC-721 token
     using Counters for Counters.Counter;
     Counters.Counter private tokenIds;
-    /// the address of the owner of this contract
-    /// the owner of this contract is the contract responsible for the logic of the
+    /// The address of the owner of this contract
+    ///     - the owner of this contract is the contract responsible for the logic of the
     address public owner;
+    /// Structure for each token's metadata
+    struct TokenMetadata {
+        uint256 timestamp;
+        address composer;
+    }
+    /// Store the metadata for each token minted
+    ///     - the key for the mapping is the token id
+    mapping(uint256 => TokenMetadata) public tokenMetadata;
 
     /**
      * Modifiers
@@ -61,5 +69,33 @@ contract MessageToken is ERC721URIStorage {
         );
         owner = newOwner;
         emit ChangeOwnership(newOwner);
+    }
+
+    /**
+     * Mint an NFT for a new tweet
+     *
+     * @param tokenURI the URI of the message - data stored in IPFS
+     * @param messageComposer the blockchain address of the composer of the message
+     */
+    function mint(
+        string memory tokenURI,
+        address messageComposer
+    ) public onlyOwner returns (uint256) {
+        // variables
+        uint256 newItemId;
+        TokenMetadata memory metadata = TokenMetadata({
+            timestamp: block.timestamp,
+            composer: messageComposer
+        });
+        /// Increment the number of tokens
+        tokenIds.increment();
+        newItemId = tokenIds.current();
+        /// Mint message NFT
+        _mint(msg.sender, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+        /// Store the metadata for the token
+        tokenMetadata[newItemId] = metadata;
+        /// Return the Id of the minted token
+        return newItemId;
     }
 }
