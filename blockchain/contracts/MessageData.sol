@@ -128,6 +128,18 @@ contract MessageData {
     }
 
     /**
+     * Return the owner of a message.
+     *
+     * @param messageId the unique serial number of the message
+     */
+    function getMessageOwner(uint256 messageId) public view returns (address) {
+        MessageCompleteData memory singleMessage = messageCompleteData[
+            messageId
+        ];
+        return singleMessage.owner;
+    }
+
+    /**
      * Return the total number of messages stored as a blockchain state.
      *
      * @return messageIdCounter the current value of the counter of the unique serial Id for the messages
