@@ -49,4 +49,17 @@ contract SocialChain {
         messageData = MessageData(messageDataContract);
         messageToken = MessageToken(messageTokenContract);
     }
+
+    /**
+     * Create and store a new message in the blockchain
+     *
+     * @param messageComposer the address of the composer of the message
+     * @param messageBytes the string for the message
+     */
+    function createMessage(
+        address messageComposer,
+        bytes memory messageBytes
+    ) public {
+        messageData.storeMessage(messageComposer, messageBytes);
+    }
 }
