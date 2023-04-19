@@ -98,4 +98,20 @@ contract SocialChain {
     function requestMessageOwnership(uint256 messageId) public {
         recipientApproval[msg.sender][messageId] = true;
     }
+
+    function changeMessageOwner(uint256 messageId, address newOwner) public {
+        require(
+            recipientApproval[newOwner][messageId],
+            "The message cannot be transferred without the recipient's approval."
+        );
+        address messageOwner = messageData.getMessageOwner(messageId);
+        require(
+            messageOwner == msg.sender,
+            "Only the owner can transfer the ownership of a message."
+        );
+        /// Set the new owner
+        messageData.setMessageOwner(messageId, newOwner);
+        /// Reset the approval to receive the ownership of the message once the ownership has already been granted
+        recipientApproval[newOwner][messageId] = false;
+    }
 }
