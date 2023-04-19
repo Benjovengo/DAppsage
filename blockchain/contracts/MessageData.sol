@@ -33,7 +33,7 @@ contract MessageData {
     }
     /// Store the data for each message added to the platform
     ///     - the key for the mapping is the message unique id
-    mapping(uint256 => MessageCompleteData) public messageCompleteData;
+    mapping(uint256 => MessageCompleteData) private messageCompleteData;
 
     /**
      * Events
