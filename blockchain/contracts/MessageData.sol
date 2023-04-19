@@ -102,6 +102,17 @@ contract MessageData {
         messageCompleteData[messageId.current()] = messageData;
         /// Emit event for publishing a message
         emit NewMessageBroadcast(messageId.current());
+
+    /**
+     * Fetch a single message from the blockchain
+     *
+     * @param messageId the unique serial number of the message to be fetched
+     * @return messageCompleteData[messageId] the corresponding message
+     */
+    function fetchMessage(
+        uint256 messageId
+    ) public view returns (MessageCompleteData memory) {
+        return messageCompleteData[messageId];
     }
 
     /**
