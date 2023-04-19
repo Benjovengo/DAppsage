@@ -23,7 +23,7 @@ contract MessageData {
     address private owner;
     /// Create the unique Id for each message
     using Counters for Counters.Counter;
-    Counters.Counter private messageId;
+    Counters.Counter private messageIdCounter;
     /// Structure for each message's metadata
     struct MessageCompleteData {
         bytes textMessage;
@@ -97,11 +97,12 @@ contract MessageData {
             owner: messageComposer
         });
         /// Increment the number of messages
-        messageId.increment();
+        messageIdCounter.increment();
         /// Store the data for the message
-        messageCompleteData[messageId.current()] = messageData;
+        messageCompleteData[messageIdCounter.current()] = messageData;
         /// Emit event for publishing a message
-        emit NewMessageBroadcast(messageId.current());
+        emit NewMessageBroadcast(messageIdCounter.current());
+    }
 
     /**
      * Fetch a single message from the blockchain
