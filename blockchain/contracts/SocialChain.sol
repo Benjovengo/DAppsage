@@ -24,6 +24,12 @@ contract SocialChain {
      */
     /// The address of the owner of this contract
     address public owner;
+    /// Request the token
+    /// - in order for someone to receive the ownership of the message,
+    ///   this transfer has to be approved by the recipient
+    /// - nested mapping:
+    ///   recipient (address) => message Id (uint256) => approved to receive? (bool)
+    mapping(address => mapping(uint256 => bool)) private recipientApproval;
     /// Contracts
     MessageData private messageData;
     MessageToken private messageToken;
@@ -82,5 +88,14 @@ contract SocialChain {
             address messageOwner
         ) = messageData.fetchMessage(messageId);
         return (textMessage, timestamp, messageComposer, messageOwner);
+    }
+
+    /**
+     * Approves receiving the ownership of a certain message
+     *
+     * @param messageId the Id of the message to be received by the msg.sender account
+     */
+    function requestMessageOwnership(uint256 messageId) public {
+        recipientApproval[msg.sender][messageId] = true;
     }
 }
