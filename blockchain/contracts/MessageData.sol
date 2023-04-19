@@ -82,17 +82,16 @@ contract MessageData {
      * Store a new message in the blockchain
      *
      * @param messageComposer the address of the composer of the message
-     * @param messageString the string for the message
+     * @param messageBytes the string for the message
      */
     function storeMessage(
         address messageComposer,
-        string memory messageString
+        bytes memory messageBytes
     ) public {
-        // Variables
-        bytes memory strBytes = bytes(messageString);
-        require(strBytes.length != 0, "The message cannot be empty.");
+        /// Variables
+        require(messageBytes.length != 0, "The message cannot be empty.");
         MessageCompleteData memory messageData = MessageCompleteData({
-            textMessage: strBytes,
+            textMessage: messageBytes,
             timestamp: block.timestamp,
             composer: messageComposer,
             owner: messageComposer
