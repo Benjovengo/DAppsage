@@ -5,7 +5,7 @@ const { ethers } = require('hardhat')
 
 describe('Message Data Storage', function () {
   // variables declaration
-  let messageData
+  let messageData, messageToken, socialChain
   let deployer, user01
 
   beforeEach(async () => {
@@ -14,6 +14,13 @@ describe('Message Data Storage', function () {
     // Deploy MessageData
     const MessageData = await ethers.getContractFactory('MessageData')
     messageData = await MessageData.connect(deployer).deploy()
+    // Deploy MessageToken
+    const MessageToken = await ethers.getContractFactory('MessageToken')
+    messageToken = await MessageToken.connect(deployer).deploy()
+    // Deploy SocialChain
+    const SocialChain = await ethers.getContractFactory('SocialChain')
+    socialChain = await SocialChain.connect(deployer).deploy(messageData.address, messageToken.address)
+    
   })
 
   it('Deployment address.', async () => {
@@ -32,14 +39,15 @@ describe('Message Data Storage', function () {
 
   it('Store and retrieve a tweet message.', async () => {
     const messageStringToStore = 'Fábio Pereira Benjovengo\' first tweet'
-    await messageData.storeMessage(user01.address, messageStringToStore)
+    const messageBytesToStore = ethers.utils.toUtf8Bytes(messageStringToStore)
+    await socialChain.createMessage(user01.address, messageBytesToStore)
     const numberOfMessages = await messageData.totalNumberOfStoredMessages()
     const messageId = 1 // Id of the message to be fetched
-    const fetchedMessage = await messageData.fetchMessage(messageId)
-    const textMessage = ethers.utils.toUtf8String(fetchedMessage.textMessage)
+    const fetchedMessage = await socialChain.fetchMessage(messageId)
+    const textMessage = ethers.utils.toUtf8String(fetchedMessage[0])
     expect(Number(numberOfMessages)).to.equal(1)
     expect(textMessage).to.equal(messageStringToStore)
-    expect(fetchedMessage.composer).to.equal(user01.address)
-    expect(fetchedMessage.owner).to.equal(user01.address)
+    expect(fetchedMessage[2]).to.equal(user01.address)
+    expect(fetchedMessage[3]).to.equal(user01.address)
   })
 })
