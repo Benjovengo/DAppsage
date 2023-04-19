@@ -73,6 +73,7 @@ contract MessageData {
             newOwner != address(0x0),
             "The new owner cannot be the address 0x0."
         );
+        require(newOwner != owner, "The new owner is the current owner.");
         owner = newOwner;
         emit ChangeOwnership(newOwner);
     }
