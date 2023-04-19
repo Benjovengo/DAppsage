@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.18;
 
+// OpenZeppelin - imports for an ERC-721 token
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+
 /**
  * @title Messages Data
  * @author Fábio Benjovengo
@@ -15,9 +18,22 @@ contract MessageData {
     /**
      * State Variables
      */
-    /// the address of the owner of this contract
-    /// the owner of this contract is the contract responsible for the logic of the
+    /// The address of the owner of this contract
+    ///     - the owner of this contract is the contract responsible for the logic of the
     address private owner;
+    /// Create the unique Id for each message
+    using Counters for Counters.Counter;
+    Counters.Counter private messageId;
+    /// Structure for each message's metadata
+    struct MessageCompleteData {
+        bytes textMessage;
+        uint256 timestamp;
+        address composer;
+        address owner;
+    }
+    /// Store the data for each message added to the platform
+    ///     - the key for the mapping is the message unique id
+    mapping(uint256 => MessageCompleteData) public messageCompleteData;
 
     /**
      * Events
