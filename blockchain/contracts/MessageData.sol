@@ -117,6 +117,20 @@ contract MessageData {
     }
 
     /**
+     * Return the total number of messages stored as a blockchain state.
+     *
+     * @return messageIdCounter the current value of the counter of the unique serial Id for the messages
+     */
+    function totalNumberOfStoredMessages()
+        public
+        view
+        onlyOwner
+        returns (uint256)
+    {
+        return messageIdCounter.current();
+    }
+
+    /**
      * Publish a new message as an event
      *
      * @param messageComposer the address of the composer of the message
