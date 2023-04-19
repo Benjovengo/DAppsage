@@ -42,6 +42,8 @@ contract MessageData {
     event ChangeOwnership(address newOwner);
     /// New Message
     event NewMessageBroadcast(uint256 id);
+    /// New Message - Event only
+    event NewMessageEventBroadcast(address composer, bytes messageBytes);
 
     /**
      * Modifiers
@@ -100,5 +102,21 @@ contract MessageData {
         messageCompleteData[messageId.current()] = messageData;
         /// Emit event for publishing a message
         emit NewMessageBroadcast(messageId.current());
+    }
+
+    /**
+     * Publish a new message as an event
+     *
+     * @param messageComposer the address of the composer of the message
+     * @param messageString the string for the message
+     */
+    function publishMessage(
+        address messageComposer,
+        string memory messageString
+    ) public {
+        bytes memory strBytes = bytes(messageString);
+        require(strBytes.length != 0, "The message cannot be empty.");
+        /// Emit event for publishing a message
+        emit NewMessageEventBroadcast(messageComposer, strBytes);
     }
 }
