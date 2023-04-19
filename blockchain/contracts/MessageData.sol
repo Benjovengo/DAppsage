@@ -41,7 +41,7 @@ contract MessageData {
     /// Change Ownership
     event ChangeOwnership(address newOwner);
     /// New Message
-    event NewMessageBroadcast(address author, string newMessage);
+    event NewMessageBroadcast(uint256 id);
 
     /**
      * Modifiers
@@ -99,6 +99,6 @@ contract MessageData {
         /// Store the data for the message
         messageCompleteData[messageId.current()] = messageData;
         /// Emit event for publishing a message
-        emit NewMessageBroadcast(messageComposer, messageString);
+        emit NewMessageBroadcast(messageId.current());
     }
 }
