@@ -73,4 +73,31 @@ contract MessageData {
         owner = newOwner;
         emit ChangeOwnership(newOwner);
     }
+
+    /**
+     * Publish a new message
+     *
+     * @param messageComposer the address of the composer of the message
+     * @param messageString the string for the message
+     */
+    function publishMessage(
+        address messageComposer,
+        string memory messageString
+    ) public {
+        // Variables
+        bytes memory strBytes = bytes(messageString);
+        require(strBytes.length != 0, "The message cannot be empty.");
+        MessageCompleteData memory messageData = MessageCompleteData({
+            textMessage: strBytes,
+            timestamp: block.timestamp,
+            composer: messageComposer,
+            owner: messageComposer
+        });
+        /// Increment the number of messages
+        messageId.increment();
+        /// Store the data for the message
+        messageCompleteData[messageId.current()] = messageData;
+        /// Emit event for publishing a message
+        emit NewMessageBroadcast(messageComposer, messageString);
+    }
 }
