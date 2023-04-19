@@ -63,6 +63,7 @@ contract MessageData {
     /**
      * Change the ownership of this smart contract
      *
+     * @param newOwner the address of the new owner of this smart contract
      * @dev this function is used when migrating to another smart contract for the logic of the messaging platform
      */
     function changeOwner(address newOwner) public onlyOwner {
