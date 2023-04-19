@@ -108,12 +108,23 @@ contract MessageData {
      * Fetch a single message from the blockchain
      *
      * @param messageId the unique serial number of the message to be fetched
-     * @return messageCompleteData[messageId] the corresponding message
+     * @return textMessage the message in bytes
+     * @return timestamp the Unix Epoch time in which the message was stored in the blockchain
+     * @return composer the address of the composer of the message
+     * @return owner the address of the current owner of the message
      */
     function fetchMessage(
         uint256 messageId
-    ) public view returns (MessageCompleteData memory) {
-        return messageCompleteData[messageId];
+    ) public view returns (bytes memory, uint256, address, address) {
+        MessageCompleteData memory singleMessage = messageCompleteData[
+            messageId
+        ];
+        return (
+            singleMessage.textMessage,
+            singleMessage.timestamp,
+            singleMessage.composer,
+            singleMessage.owner
+        );
     }
 
     /**
