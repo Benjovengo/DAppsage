@@ -76,12 +76,12 @@ contract MessageData {
     }
 
     /**
-     * Publish a new message
+     * Store a new message in the blockchain
      *
      * @param messageComposer the address of the composer of the message
      * @param messageString the string for the message
      */
-    function publishMessage(
+    function storeMessage(
         address messageComposer,
         string memory messageString
     ) public {
