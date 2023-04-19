@@ -140,6 +140,30 @@ contract MessageData {
     }
 
     /**
+     * Set a new owner of a message.
+     *
+     * @param messageId the unique serial number of the message
+     * @param newOwner the new owner of the message
+     */
+    function setMessageOwner(
+        uint256 messageId,
+        address newOwner
+    ) public onlyOwner {
+        require(
+            newOwner != address(0x0),
+            "The new owner cannot be the address 0x0."
+        );
+        require(
+            messageCompleteData[messageId].timestamp != 0,
+            "The struct has not been defined yet."
+        );
+        MessageCompleteData storage singleMessage = messageCompleteData[
+            messageId
+        ];
+        singleMessage.owner = newOwner;
+    }
+
+    /**
      * Return the total number of messages stored as a blockchain state.
      *
      * @return messageIdCounter the current value of the counter of the unique serial Id for the messages
