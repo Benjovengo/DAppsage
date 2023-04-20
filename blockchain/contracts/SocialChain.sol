@@ -160,4 +160,17 @@ contract SocialChain is Pausable {
     ) public whenNotPaused {
         messageData.publishMessage(messageComposer, messageBytes);
     }
+
+    /**
+     * Store a tweet/message as an ERC-721 token
+     *
+     * @param tokenURI the tweet/message - Uniform Resource Identifier (URI) for the token
+     * @param messageComposer the address of the composer of the tweet/message
+     */
+    function mintERC721Message(
+        string memory tokenURI,
+        address messageComposer
+    ) public {
+        messageToken.mint(tokenURI, messageComposer);
+    }
 }
