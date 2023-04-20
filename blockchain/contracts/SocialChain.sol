@@ -46,6 +46,8 @@ contract SocialChain {
     /**
      * Events
      */
+    /// Change the owner of the SocialChain smart contract
+    event SocialChainChangeOwnership(address newOwner);
 
     /**
      * Constructor Method
@@ -69,6 +71,8 @@ contract SocialChain {
         );
         require(newOwner != owner, "The new owner is the current owner.");
         owner = newOwner;
+        /// Emit event for the chang in ownership
+        emit SocialChainChangeOwnership(newOwner);
     }
 
     /**
