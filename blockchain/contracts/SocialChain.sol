@@ -124,9 +124,9 @@ contract SocialChain {
             messageOwner == msg.sender,
             "Only the owner can transfer the ownership of a message."
         );
-        /// Set the new owner
-        messageData.setMessageOwner(messageId, newOwner);
         /// Reset the approval to receive the ownership of the message once the ownership has already been granted
         recipientApproval[newOwner][messageId] = false;
+        /// Set the new owner
+        messageData.setMessageOwner(messageId, newOwner);
     }
 }
