@@ -133,37 +133,37 @@ contract SocialChain is Pausable {
     /**
      * Approves receiving the ownership of a certain token for a tweet/message
      *
-     * @param messageId the Id of the token tweet/message to be received by the msg.sender account
+     * @param tokenId the Id of the token tweet/message to be received by the msg.sender account
      */
-    function requestTokenOwnership(uint256 messageId) public {
-        recipientTokenApproval[msg.sender][messageId] = true;
+    function requestTokenOwnership(uint256 tokenId) public {
+        recipientTokenApproval[msg.sender][tokenId] = true;
     }
 
     /**
      * Cancel approval to receive the ownership of a certain token for a tweet/message
      *
-     * @param messageId the Id of the token tweet/message to be received by the msg.sender account
+     * @param tokenId the Id of the token tweet/message to be received by the msg.sender account
      */
-    function cancelRequestTokenOwnership(uint256 messageId) public {
-        recipientTokenApproval[msg.sender][messageId] = false;
+    function cancelRequestTokenOwnership(uint256 tokenId) public {
+        recipientTokenApproval[msg.sender][tokenId] = false;
     }
 
     /**
      * Approves transferring the ownership of a certain tweet/message token
      *
-     * @param messageId the Id of the token tweet/message to be sent
+     * @param tokenId the Id of the token tweet/message to be sent
      */
-    function approveTokenTransfer(uint256 messageId) public {
-        messageToken.approve(address(this), messageId);
+    function approveTokenTransfer(uint256 tokenId) public {
+        messageToken.approve(address(this), tokenId);
     }
 
     /**
      * Cancel approval to receive the ownership of a certain tweet/message token
      *
-     * @param messageId the Id of the token tweet/message to be sent
+     * @param tokenId the Id of the token tweet/message to be sent
      */
-    function cancelTokenTransferApproval(uint256 messageId) public {
-        messageToken.approve(address(0x0), messageId);
+    function cancelTokenTransferApproval(uint256 tokenId) public {
+        messageToken.approve(address(0x0), tokenId);
     }
 
     /**
