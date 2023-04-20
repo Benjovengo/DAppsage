@@ -149,6 +149,24 @@ contract SocialChain is Pausable {
     }
 
     /**
+     * Approves transferring the ownership of a certain tweet/message token
+     *
+     * @param messageId the Id of the token tweet/message to be sent
+     */
+    function approveTokenTransfer(uint256 messageId) public {
+        messageToken.approve(address(this), messageId);
+    }
+
+    /**
+     * Cancel approval to receive the ownership of a certain tweet/message token
+     *
+     * @param messageId the Id of the token tweet/message to be sent
+     */
+    function cancelTokenTransferApproval(uint256 messageId) public {
+        messageToken.approve(address(0x0), messageId);
+    }
+
+    /**
      * Change the owner of a tweet/message.
      *
      * @param messageId the serial identifier of the tweet/message
