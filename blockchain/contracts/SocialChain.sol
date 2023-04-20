@@ -120,6 +120,15 @@ contract SocialChain is Pausable {
         recipientApproval[msg.sender][messageId] = true;
     }
 
+    /**
+     * Change the owner of a tweet/message.
+     *
+     * @param messageId the serial identifier of the tweet/message
+     * @param newOwner the new owner of the tweet/message
+     *
+     * @dev the new owner has to have approved the transfer of ownership before
+     * the change otherwise the change will not happen
+     */
     function changeMessageOwner(
         uint256 messageId,
         address newOwner
