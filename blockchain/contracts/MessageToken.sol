@@ -121,6 +121,10 @@ contract MessageToken is ERC721URIStorage {
             msg.sender == owner,
             "Only the contract owner can transfer tweet tokens."
         );
+        require(
+            to != address(0x0),
+            "The token cannot be transferred to address 0x0."
+        );
         super._transfer(from, to, tokenId);
     }
 }
