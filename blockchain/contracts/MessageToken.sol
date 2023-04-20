@@ -36,6 +36,12 @@ contract MessageToken is ERC721URIStorage {
     mapping(uint256 => TokenMetadata) public tokenMetadata;
 
     /**
+     * Events
+     */
+    /// Mint an ERC721 token
+    event ERC721TokenCreation(uint256 tokenId, address messageComposer);
+
+    /**
      * Modifiers
      * @dev only certain entity can call some methods
      */
@@ -80,22 +86,22 @@ contract MessageToken is ERC721URIStorage {
     function mint(
         string memory tokenURI,
         address messageComposer
-    ) public onlyOwner returns (uint256) {
+    ) public onlyOwner {
         // variables
-        uint256 newItemId;
+        uint256 newTokenId;
         TokenMetadata memory metadata = TokenMetadata({
             timestamp: block.timestamp,
             composer: messageComposer
         });
         /// Increment the number of tokens
         tokenIds.increment();
-        newItemId = tokenIds.current();
+        newTokenId = tokenIds.current();
         /// Mint message NFT
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        _mint(msg.sender, newTokenId);
+        _setTokenURI(newTokenId, tokenURI);
         /// Store the metadata for the token
-        tokenMetadata[newItemId] = metadata;
-        /// Return the Id of the minted token
-        return newItemId;
+        tokenMetadata[newTokenId] = metadata;
+        /// Emit an event broadcasting the new token Id and the message composer
+        emit ERC721TokenCreation(newTokenId, messageComposer);
     }
 }
