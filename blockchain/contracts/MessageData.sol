@@ -154,7 +154,7 @@ contract MessageData {
             "The new owner cannot be the address 0x0."
         );
         require(
-            messageCompleteData[messageId].timestamp != 0,
+            messageCompleteData[messageId].owner != address(0x0),
             "The struct has not been defined yet."
         );
         MessageCompleteData storage singleMessage = messageCompleteData[
