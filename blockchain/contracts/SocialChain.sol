@@ -31,8 +31,8 @@ contract SocialChain {
     ///   recipient (address) => message Id (uint256) => approved to receive? (bool)
     mapping(address => mapping(uint256 => bool)) private recipientApproval;
     /// Contracts
-    MessageData private messageData;
-    MessageToken private messageToken;
+    MessageData private immutable messageData;
+    MessageToken private immutable messageToken;
 
     /**
      * Modifiers
@@ -54,6 +54,21 @@ contract SocialChain {
         owner = msg.sender;
         messageData = MessageData(messageDataContract);
         messageToken = MessageToken(messageTokenContract);
+    }
+
+    /**
+     * Change the ownership of this smart contract
+     *
+     * @param newOwner the address of the new owner of this smart contract
+     * @dev this function is used when migrating to another smart contract for the logic of the messaging platform
+     */
+    function changeOwner(address newOwner) public onlyOwner {
+        require(
+            newOwner != address(0x0),
+            "The new owner cannot be the address 0x0."
+        );
+        require(newOwner != owner, "The new owner is the current owner.");
+        owner = newOwner;
     }
 
     /**
