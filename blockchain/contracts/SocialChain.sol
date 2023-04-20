@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.18;
 
+/// Import OpenZeppelin libraries
+import "../node_modules/@openzeppelin/contracts/security/Pausable.sol";
 /// Import the data smart contracts
 import "./MessageData.sol";
 import "./MessageToken.sol";
@@ -18,7 +20,7 @@ import "./MessageToken.sol";
  * information in this project!
  * @custom:security-contact fabio.benjovengo@gmail.com
  */
-contract SocialChain {
+contract SocialChain is Pausable {
     /**
      * State Variables
      */
@@ -84,7 +86,7 @@ contract SocialChain {
     function createMessage(
         address messageComposer,
         bytes memory messageBytes
-    ) public {
+    ) public whenNotPaused {
         messageData.storeMessage(messageComposer, messageBytes);
     }
 
@@ -118,7 +120,10 @@ contract SocialChain {
         recipientApproval[msg.sender][messageId] = true;
     }
 
-    function changeMessageOwner(uint256 messageId, address newOwner) public {
+    function changeMessageOwner(
+        uint256 messageId,
+        address newOwner
+    ) public whenNotPaused {
         require(
             recipientApproval[newOwner][messageId],
             "The message cannot be transferred without the recipient's approval."
