@@ -32,6 +32,7 @@ contract SocialChain is Pausable {
     /// - nested mapping:
     ///   recipient (address) => message Id (uint256) => approved to receive? (bool)
     mapping(address => mapping(uint256 => bool)) private recipientTweetApproval;
+    mapping(address => mapping(uint256 => bool)) private recipientTokenApproval;
     /// Contracts
     MessageData private immutable messageData;
     MessageToken private immutable messageToken;
@@ -127,6 +128,24 @@ contract SocialChain is Pausable {
      */
     function cancelRequestMessageOwnership(uint256 messageId) public {
         recipientTweetApproval[msg.sender][messageId] = false;
+    }
+
+    /**
+     * Approves receiving the ownership of a certain token for a tweet/message
+     *
+     * @param messageId the Id of the token tweet/message to be received by the msg.sender account
+     */
+    function requestTokenOwnership(uint256 messageId) public {
+        recipientTokenApproval[msg.sender][messageId] = true;
+    }
+
+    /**
+     * Cancel approval to receive the ownership of a certain token for a tweet/message
+     *
+     * @param messageId the Id of the token tweet/message to be received by the msg.sender account
+     */
+    function cancelRequestTokenOwnership(uint256 messageId) public {
+        recipientTokenApproval[msg.sender][messageId] = false;
     }
 
     /**
