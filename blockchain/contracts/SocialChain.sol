@@ -31,7 +31,7 @@ contract SocialChain is Pausable {
     ///   this transfer has to be approved by the recipient
     /// - nested mapping:
     ///   recipient (address) => message Id (uint256) => approved to receive? (bool)
-    mapping(address => mapping(uint256 => bool)) private recipientApproval;
+    mapping(address => mapping(uint256 => bool)) private recipientTweetApproval;
     /// Contracts
     MessageData private immutable messageData;
     MessageToken private immutable messageToken;
@@ -117,7 +117,7 @@ contract SocialChain is Pausable {
      * @param messageId the Id of the tweet/message to be received by the msg.sender account
      */
     function requestMessageOwnership(uint256 messageId) public {
-        recipientApproval[msg.sender][messageId] = true;
+        recipientTweetApproval[msg.sender][messageId] = true;
     }
 
     /**
@@ -126,7 +126,7 @@ contract SocialChain is Pausable {
      * @param messageId the Id of the tweet/message to be received by the msg.sender account
      */
     function cancelRequestMessageOwnership(uint256 messageId) public {
-        recipientApproval[msg.sender][messageId] = false;
+        recipientTweetApproval[msg.sender][messageId] = false;
     }
 
     /**
@@ -143,7 +143,7 @@ contract SocialChain is Pausable {
         address newOwner
     ) public whenNotPaused {
         require(
-            recipientApproval[newOwner][messageId],
+            recipientTweetApproval[newOwner][messageId],
             "The message cannot be transferred without the recipient's approval."
         );
         address messageOwner = messageData.getMessageOwner(messageId);
@@ -152,7 +152,7 @@ contract SocialChain is Pausable {
             "Only the owner can transfer the ownership of a message."
         );
         /// Reset the approval to receive the ownership of the message once the ownership has already been granted
-        recipientApproval[newOwner][messageId] = false;
+        recipientTweetApproval[newOwner][messageId] = false;
         /// Set the new owner
         messageData.setMessageOwner(messageId, newOwner);
     }
