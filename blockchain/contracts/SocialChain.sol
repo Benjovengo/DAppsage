@@ -195,6 +195,29 @@ contract SocialChain is Pausable {
     }
 
     /**
+     * Transfer the tweet/message token.
+     *
+     * @param tokenId the serial identifier of the tweet/message
+     * @param newOwner the new owner of the tweet/message
+     *
+     * @dev the new owner has to have approved the transfer of the token before
+     * the transfer otherwise the transfer of the token will not happen
+     */
+    function transferToken(
+        uint256 tokenId,
+        address newOwner
+    ) public whenNotPaused {
+        require(
+            recipientTokenApproval[newOwner][tokenId],
+            "The tweet/message token cannot be transferred without the recipient's approval."
+        );
+        /// Reset the approval to receive the tweet/message token once the ownership has already been granted
+        recipientTokenApproval[newOwner][tokenId] = false;
+        /// Transfer the token
+        messageToken.transferFrom(msg.sender, newOwner, tokenId);
+    }
+
+    /**
      * Broadcast a new message as an event in the blockchain
      *
      * @param messageComposer the address of the composer of the message
