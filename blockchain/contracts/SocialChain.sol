@@ -147,4 +147,17 @@ contract SocialChain is Pausable {
         /// Set the new owner
         messageData.setMessageOwner(messageId, newOwner);
     }
+
+    /**
+     * Broadcast a new message as an event in the blockchain
+     *
+     * @param messageComposer the address of the composer of the message
+     * @param messageBytes the string for the message
+     */
+    function broadcastOnly(
+        address messageComposer,
+        bytes memory messageBytes
+    ) public whenNotPaused {
+        messageData.publishMessage(messageComposer, messageBytes);
+    }
 }

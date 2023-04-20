@@ -181,15 +181,14 @@ contract MessageData {
      * Publish a new message as an event
      *
      * @param messageComposer the address of the composer of the message
-     * @param messageString the string for the message
+     * @param messageBytes the bytes representation of a string for the message
      */
     function publishMessage(
         address messageComposer,
-        string memory messageString
+        bytes memory messageBytes
     ) public {
-        bytes memory strBytes = bytes(messageString);
-        require(strBytes.length != 0, "The message cannot be empty.");
+        require(messageBytes.length != 0, "The message cannot be empty.");
         /// Emit event for publishing a message
-        emit NewMessageEventBroadcast(messageComposer, strBytes);
+        emit NewMessageEventBroadcast(messageComposer, messageBytes);
     }
 }
