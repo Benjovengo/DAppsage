@@ -223,7 +223,7 @@ contract SocialChain is Pausable {
      * @param messageComposer the address of the composer of the message
      * @param messageBytes the string for the message
      */
-    function broadcastOnly(
+    function broadcastEventOnly(
         address messageComposer,
         bytes memory messageBytes
     ) public whenNotPaused {
