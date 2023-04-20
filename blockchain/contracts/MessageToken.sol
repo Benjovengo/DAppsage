@@ -118,7 +118,7 @@ contract MessageToken is ERC721URIStorage {
         uint256 tokenId
     ) internal virtual override(ERC721) {
         require(
-            msg.sender == this.owner(),
+            msg.sender == owner,
             "Only the contract owner can transfer tweet tokens."
         );
         super._transfer(from, to, tokenId);
