@@ -112,12 +112,21 @@ contract SocialChain is Pausable {
     }
 
     /**
-     * Approves receiving the ownership of a certain message
+     * Approves receiving the ownership of a certain tweet/message
      *
-     * @param messageId the Id of the message to be received by the msg.sender account
+     * @param messageId the Id of the tweet/message to be received by the msg.sender account
      */
     function requestMessageOwnership(uint256 messageId) public {
         recipientApproval[msg.sender][messageId] = true;
+    }
+
+    /**
+     * Cancel approval to receive the ownership of a certain tweet/message
+     *
+     * @param messageId the Id of the tweet/message to be received by the msg.sender account
+     */
+    function cancelRequestMessageOwnership(uint256 messageId) public {
+        recipientApproval[msg.sender][messageId] = false;
     }
 
     /**

@@ -104,4 +104,23 @@ contract MessageToken is ERC721URIStorage {
         /// Emit an event broadcasting the new token Id and the message composer
         emit ERC721TokenCreation(newTokenId, messageComposer);
     }
+
+    /**
+     * Function Overrrides
+     *
+     * @dev Overrides the default functionalities for the ERC721 tokens.
+     * @dev This allow developers to customize functions imported from
+     * OpenZeppelin's ERC721 smart contract
+     */
+    function _transfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override(ERC721) {
+        require(
+            msg.sender == this.owner(),
+            "Only the contract owner can transfer tweet tokens."
+        );
+        super._transfer(from, to, tokenId);
+    }
 }
