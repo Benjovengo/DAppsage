@@ -216,6 +216,35 @@ contract MessageData {
     }
 
     /**
+     * Remove a message from an account.
+     *
+     * @dev Takes the last element of the array and copy its value to the index
+     * where the element to be removed is in. Then pop the last element since
+     * it has already been copied to another location in the array.
+     * @dev This technique ensures that the array keeps the correct length
+     * after removing an item.
+     *
+     * @param ownerAddress the address of the account to which add the message.
+     * @param messageId the Id (unique serial identifier) of themessage/tweet.
+     */
+    function removeMessage(address ownerAddress, uint256 messageId) private {
+        /// The index in the owner's array of the desired message to be removed
+        uint256 index = messageIdIndex[ownerAddress][messageId];
+        /// Copy the last element in the owner's array to the position of the
+        /// element to be removed
+        ownedMessages[ownerAddress][index] = ownedMessages[ownerAddress][
+            ownedMessages[ownerAddress].length - 1
+        ];
+        /// Update the index for the message
+        uint256 lastItemId = ownedMessages[ownerAddress][
+            ownedMessages[ownerAddress].length - 1
+        ];
+        messageIdIndex[ownerAddress][lastItemId] = index;
+        /// Remove the last item of the array and reduce its length
+        ownedMessages[ownerAddress].pop();
+    }
+
+    /**
      * Publish a new message as an event
      *
      * @param messageComposer the address of the composer of the message
