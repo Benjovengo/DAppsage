@@ -38,6 +38,10 @@ contract MessageData {
     ///     - the key is the address of the owner of a message
     ///     - stores an array of Ids of the messages owned by the address
     mapping(address => uint256[]) private ownedMessages;
+    /// Store the number of likes for each message
+    ///     - the key is the Id of the message
+    ///     - stores how many likes the message has
+    mapping(uint256 => uint256) private numberOfLikes;
 
     /**
      * Events
