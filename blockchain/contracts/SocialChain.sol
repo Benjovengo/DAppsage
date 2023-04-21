@@ -4,8 +4,8 @@ pragma solidity ^0.8.18;
 /// Import OpenZeppelin libraries
 import "../node_modules/@openzeppelin/contracts/security/Pausable.sol";
 /// Import the data smart contracts
-import "./MessageData.sol";
-import "./MessageToken.sol";
+import "./Data_Storage/MessageData.sol";
+import "./Data_Storage/MessageToken.sol";
 
 /**
  * @title Social Media Smart Contract
