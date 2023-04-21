@@ -186,6 +186,15 @@ contract MessageData {
     }
 
     /**
+     * Add a like to a message/tweet.
+     *
+     * @param messageId the Id (unique serial identifier) of the liked message/tweet.
+     */
+    function addLike(uint256 messageId) public {
+        numberOfLikes[messageId] += 1;
+    }
+
+    /**
      * Publish a new message as an event
      *
      * @param messageComposer the address of the composer of the message
