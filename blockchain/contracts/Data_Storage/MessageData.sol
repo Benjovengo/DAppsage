@@ -245,6 +245,35 @@ contract MessageData {
     }
 
     /**
+     * Transfer a message from one accout to another.
+     *
+     * The currentOwner address has to be the owner of the message.
+     *
+     * @param currentOwner the address of the current owner of the message.
+     * @param newOwner the address of the account to which the message will be
+     * transferred to.
+     * @param messageId the Id (unique serial identifier) of the message.
+     */
+    function transferMessageOwnership(
+        address currentOwner,
+        address newOwner,
+        uint256 messageId
+    ) public {
+        require(
+            messageCompleteData[messageId].owner == currentOwner,
+            "Only the owner can transfer the message."
+        );
+        require(
+            (newOwner != address(0x0) && currentOwner != address(0x0)),
+            "Both the current owner and the new owner cannot be the address 0x0."
+        );
+        addMessage(newOwner, messageId);
+        removeMessage(currentOwner, messageId);
+        /// Emit event for publishing a message
+        emit NewMessageBroadcast(messageId);
+    }
+
+    /**
      * Publish a new message as an event
      *
      * @param messageComposer the address of the composer of the message
