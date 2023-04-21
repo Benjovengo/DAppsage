@@ -2,7 +2,7 @@
 pragma solidity ^0.8.18;
 
 // OpenZeppelin - imports for an ERC-721 token
-import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "../../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 /**
  * @title Messages Data
