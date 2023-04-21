@@ -232,13 +232,11 @@ contract MessageData {
         uint256 index = messageIdIndex[ownerAddress][messageId];
         /// Copy the last element in the owner's array to the position of the
         /// element to be removed
-        ownedMessages[ownerAddress][index] = ownedMessages[ownerAddress][
-            ownedMessages[ownerAddress].length - 1
-        ];
-        /// Update the index for the message
         uint256 lastItemId = ownedMessages[ownerAddress][
             ownedMessages[ownerAddress].length - 1
         ];
+        ownedMessages[ownerAddress][index] = lastItemId;
+        /// Update the index for the message
         messageIdIndex[ownerAddress][lastItemId] = index;
         /// Remove the last item of the array and reduce its length
         ownedMessages[ownerAddress].pop();
