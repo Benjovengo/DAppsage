@@ -34,6 +34,10 @@ contract MessageData {
     /// Store the data for each message added to the platform
     ///     - the key for the mapping is the message unique id
     mapping(uint256 => MessageCompleteData) private messageCompleteData;
+    /// Store the message for the owners
+    ///     - the key is the address of the owner of a message
+    ///     - stores an array of Ids of the messages owned by the address
+    mapping(address => uint256[]) private ownedMessages;
 
     /**
      * Events
