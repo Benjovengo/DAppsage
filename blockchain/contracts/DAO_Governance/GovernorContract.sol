@@ -9,17 +9,19 @@ import "../../node_modules/@openzeppelin/contracts/governance/extensions/Governo
 import "../../node_modules/@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
 /**
- * @title The Governance Contract - Governance for the social network
- * @author Fábio Benjovengo
- *
- * Implementation of the governor contract, where the logic decisions are coded.
- *
- * @dev Use this contract only for tests! Do NOT send any real ether to this project!
- * @dev Contract created with the help of https://wizard.openzeppelin.com/#governor
- * @dev Beware of the compiled file size. Needs to use solc optimization to keep under the file size limit.
- * @custom:experimental This is an experimental contract.
- * @custom:security-contact fabio.benjovengo@gmail.com
- */
+@title The Governance Contract - Governance for the social network
+@author Fábio Benjovengo
+
+Implementation of the governor contract, where the logic decisions are coded.
+
+@dev Use this contract only for tests! Do NOT use this contract to manage real
+ether or send any real ether to this project!
+@dev Contract created with the help of https://wizard.openzeppelin.com/#governor
+@dev Beware of the compiled file size. Needs to use solc optimization to keep
+under the file size limit.
+@custom:experimental This is an experimental contract.
+@custom:security-contact fabio.benjovengo@gmail.com
+*/
 contract GovernorContract is
     Governor,
     GovernorSettings,
@@ -29,18 +31,17 @@ contract GovernorContract is
     GovernorTimelockControl
 {
     /**
-     * Initializes the contract with the following parameters:
-     *
-     * @param _token: interface for the ERC20Votes
-     * @param _timelock: interface for the TimelockController
-     *
-     *
-     * @dev [1] there is no minimal number of votes an account must have to be
-     * able to create a proposal
-     * @dev this contract is compatible with OpenZeppelin's TimelockController.
-     * Allows multiple proposers and executors, in addition to the Governor
-     * itself.
-     */
+    Initializes the contract with the following parameters:
+    
+    @param _token: interface for the ERC20Votes
+    @param _timelock: interface for the TimelockController
+    
+    @dev [1] there is no minimal number of votes an account must have to be
+    able to create a proposal
+    @dev this contract is compatible with OpenZeppelin's TimelockController.
+    Allows multiple proposers and executors, in addition to the Governor
+    itself.
+    */
     constructor(
         IVotes _token,
         TimelockController _timelock,
@@ -50,16 +51,17 @@ contract GovernorContract is
     )
         Governor("The Blockchain Social Network")
         /**
-         * @dev settings parameters:
+        @dev settings parameters:
          *
-         * @param _votingDelay: voting delay in number of blocks (ex: 1 block)
-         * @param _votingPeriod: voting period (ex: 1 week = (3600*24*7)/(12) for 12s per block)
-         *                       time in seconds divided by the average time per block
-         * @param 0 - proposal threshold (hard coded) [see notice [1] above]
-         */
+        @param _votingDelay: voting delay in number of blocks (ex: 1 block)
+        @param _votingPeriod:
+            voting period (ex: 1 week = (3600*24*7)/(12) for 12s per block)
+            time in seconds divided by the average time per block
+        @param 0 - proposal threshold (hard coded) [see notice [1] above]
+        */
         GovernorSettings(
-            _votingDelay /* 1 block */,
-            _votingPeriod, // 45818, /* 1 week */
+            _votingDelay /* 1 block*/,
+            _votingPeriod, // 45818, /* 1 week*/
             0 // proposal threshold
         )
         GovernorVotes(_token)
@@ -69,14 +71,14 @@ contract GovernorContract is
     {}
 
     /** The following functions are overrides required by Solidity.
-     *
-     * @dev this overrides add the definitions set in the contructor
-     * to the functions of the parent contract `Governor.sol`
-     * @dev In inheritance, when a contract inherits from another
-     * contract, it can override the functions defined in the parent contract.
-     * The `super` keyword allows the child contract to call the
-     * implementation of the parent contract's function.
-     */
+    
+    @dev this overrides add the definitions set in the contructor
+    to the functions of the parent contract `Governor.sol`
+    @dev In inheritance, when a contract inherits from another
+    contract, it can override the functions defined in the parent contract.
+    The `super` keyword allows the child contract to call the
+    implementation of the parent contract's function.
+    */
 
     function votingDelay()
         public

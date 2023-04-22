@@ -7,19 +7,21 @@ import "../../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC72
 import "../../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 /**
- * @title Messages Token
- * @author Fábio Benjovengo
- *
- * ERC-721 token to represent unique messages like tweets
- *
- * @dev the ERC721Storage is used to be able to more easily migrate the logic contracts
- * @custom:security Use this contract only for tests! Do NOT store any real information in this project!
- * @custom:security-contact fabio.benjovengo@gmail.com
- */
+@title Messages Token
+@author Fábio Benjovengo
+
+ERC-721 token to represent unique messages like tweets
+
+@dev the ERC721Storage is used to be able to more easily migrate the logic
+contracts
+@custom:security Use this contract only for tests! Do NOT use this contract to
+manage real ether or send any real information in this project!
+@custom:security-contact fabio.benjovengo@gmail.com
+*/
 contract MessageToken is ERC721URIStorage {
     /**
-     * State Variables
-     */
+    State Variables
+    */
     /// allow to create an enumerable ERC-721 token
     using Counters for Counters.Counter;
     Counters.Counter private tokenIds;
@@ -36,38 +38,38 @@ contract MessageToken is ERC721URIStorage {
     mapping(uint256 => TokenMetadata) public tokenMetadata;
 
     /**
-     * Events
-     */
+    Events
+    */
     /// Mint an ERC721 token
     event ERC721TokenCreation(uint256 tokenId, address messageComposer);
 
     /**
-     * Modifiers
-     * @dev only certain entity can call some methods
-     */
+    Modifiers
+    @dev only certain entity can call some methods
+    */
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can call this function.");
         _;
     }
 
     /**
-     * Events
-     */
+    Events
+    */
     /// Change Ownership
     event ChangeOwnership(address newOwner);
 
     /**
-     * Constructor Method
-     */
+    Constructor Method
+    */
     constructor() ERC721("DApp Message Token", "DMSG") {
         owner = msg.sender;
     }
 
     /**
-     * Change the ownership of this smart contract
-     *
-     * @dev this function is used when migrating to another smart contract for the logic of the messaging platform
-     */
+    Change the ownership of this smart contract
+    
+    @dev this function is used when migrating to another smart contract for the logic of the messaging platform
+    */
     function changeOwner(address newOwner) public onlyOwner {
         require(
             newOwner != address(0x0),
@@ -78,11 +80,11 @@ contract MessageToken is ERC721URIStorage {
     }
 
     /**
-     * Mint an NFT for a new tweet
-     *
-     * @param tokenURI the URI of the message - data stored in IPFS
-     * @param messageComposer the blockchain address of the composer of the message
-     */
+    Mint an NFT for a new tweet
+    
+    @param tokenURI the URI of the message - data stored in IPFS
+    @param messageComposer the blockchain address of the composer of the message
+    */
     function mint(
         string memory tokenURI,
         address messageComposer
@@ -106,12 +108,12 @@ contract MessageToken is ERC721URIStorage {
     }
 
     /**
-     * Function Overrrides
+    Function Overrrides
      *
-     * @dev Overrides the default functionalities for the ERC721 tokens.
-     * @dev This allow developers to customize functions imported from
-     * OpenZeppelin's ERC721 smart contract
-     */
+    @dev Overrides the default functionalities for the ERC721 tokens.
+    @dev This allow developers to customize functions imported from
+    OpenZeppelin's ERC721 smart contract
+    */
     function _transfer(
         address from,
         address to,

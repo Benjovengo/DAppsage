@@ -5,23 +5,24 @@ import "../../node_modules/@openzeppelin/contracts/token/ERC20/extensions/ERC20V
 import "../../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title ERC-20 Voting Token - Governance for the social network
- * @author Fábio Benjovengo
- *
- * @notice This contract implements the voting token standard.
- *
- * @dev Use this contract only for tests! Do NOT send any real ether to this project!
- * @custom:experimental This is an experimental contract.
- * @custom:security-contact fabio.benjovengo@gmail.com
- */
+@title ERC-20 Voting Token - Governance for the social network
+@author Fábio Benjovengo
+
+@notice This contract implements the voting token standard.
+
+@dev Use this contract only for tests! Do NOT use this contract to manage real
+ether or send any real ether to this project!
+@custom:experimental This is an experimental contract.
+@custom:security-contact fabio.benjovengo@gmail.com
+*/
 contract VotingToken is ERC20Votes, Ownable {
     /**
-     * @dev Initializes the contract with the following parameters:
-     *
-     * @notice ERC20Permit standard is used to build applications that
-     * require conditional transfers of tokens, such as decentralized
-     * exchanges or governance systems
-     */
+    @dev Initializes the contract with the following parameters:
+    
+    @notice ERC20Permit standard is used to build applications that
+    require conditional transfers of tokens, such as decentralized
+    exchanges or governance systems
+    */
     constructor()
         ERC20("Tweet Voting Token", "TVT")
         ERC20Permit("Tweet Voting Token")
@@ -30,10 +31,9 @@ contract VotingToken is ERC20Votes, Ownable {
     }
 
     /**
-     * The following functions are overrides required by Solidity.
-     *
-     * @dev Created by OpenZeppelin Wizard at https://docs.openzeppelin.com/contracts/4.x/wizard
-     */
+    The following functions are overrides required by Solidity.
+        @dev Created by OpenZeppelin Wizard at https://docs.openzeppelin.com/contracts/4.x/wizard
+    */
 
     /// @dev Move voting power when tokens are transferred.
     function _afterTokenTransfer(

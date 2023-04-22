@@ -5,21 +5,24 @@ pragma solidity ^0.8.18;
 import "../../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 /**
- * @title Messages Data
- * @author Fábio Benjovengo
- *
- * Smart contract to store the messages
- *
- * @dev the data is stored in a separate smart contract to be able to more easily migrate the logic contracts
- * @custom:security Use this contract only for tests! Do NOT store any real information in this project!
- * @custom:security-contact fabio.benjovengo@gmail.com
- */
+@title Messages Data
+@author Fábio Benjovengo
+
+Smart contract to store the messages
+
+@dev the data is stored in a separate smart contract to be able to more easily
+migrate the logic contracts
+@custom:security Use this contract only for tests! Do NOT use this contract to
+manage real ether or send any real information in this project!
+@custom:security-contact fabio.benjovengo@gmail.com
+*/
 contract MessageData {
     /**
-     * State Variables
-     */
+    State Variables
+    */
     /// The address of the owner of this contract
-    ///     - the owner of this contract is the contract responsible for the logic of the
+    ///     - the owner of this contract is the contract responsible for the
+    ///       logic of the social network
     address private owner;
     /// Create the unique Id for each message
     using Counters for Counters.Counter;
@@ -48,8 +51,8 @@ contract MessageData {
     mapping(uint256 => uint256) private numberOfLikes;
 
     /**
-     * Events
-     */
+    Events
+    */
     /// Change Ownership
     event ChangeOwnership(address newOwner);
     /// New Message
@@ -58,28 +61,29 @@ contract MessageData {
     event NewMessageEventBroadcast(address composer, bytes messageBytes);
 
     /**
-     * Modifiers
-     * @dev only certain entity can call some methods
-     */
+    Modifiers
+    @dev only certain entity can call some methods
+    */
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can call this function.");
         _;
     }
 
     /**
-     * Constructor Method
-     */
+    Constructor Method
+    */
     constructor() {
         /// set the deployer as the initial owner of this contract
         owner = msg.sender;
     }
 
     /**
-     * Change the ownership of this smart contract
-     *
-     * @param newOwner the address of the new owner of this smart contract
-     * @dev this function is used when migrating to another smart contract for the logic of the messaging platform
-     */
+    Change the ownership of this smart contract
+    
+    @param newOwner the address of the new owner of this smart contract
+    @dev this function is used when migrating to another smart contract for the
+    logic of the messaging platform
+    */
     function changeOwner(address newOwner) public onlyOwner {
         require(
             newOwner != address(0x0),
@@ -91,11 +95,11 @@ contract MessageData {
     }
 
     /**
-     * Store a new message in the blockchain
-     *
-     * @param messageComposer the address of the composer of the message
-     * @param messageBytes the string for the message
-     */
+    Store a new message in the blockchain
+    
+    @param messageComposer the address of the composer of the message
+    @param messageBytes the string for the message
+    */
     function storeMessage(
         address messageComposer,
         bytes memory messageBytes
@@ -119,14 +123,15 @@ contract MessageData {
     }
 
     /**
-     * Fetch a single message from the blockchain
-     *
-     * @param messageId the unique serial number of the message to be fetched
-     * @return textMessage the message in bytes
-     * @return timestamp the Unix Epoch time in which the message was stored in the blockchain
-     * @return composer the address of the composer of the message
-     * @return owner the address of the current owner of the message
-     */
+    Fetch a single message from the blockchain
+    
+    @param messageId the unique serial number of the message to be fetched
+    @return textMessage the message in bytes
+    @return timestamp the Unix Epoch time in which the message was stored in the
+    blockchain
+    @return composer the address of the composer of the message
+    @return owner the address of the current owner of the message
+    */
     function fetchMessage(
         uint256 messageId
     ) public view returns (bytes memory, uint256, address, address) {
@@ -142,10 +147,10 @@ contract MessageData {
     }
 
     /**
-     * Return the owner of a message.
-     *
-     * @param messageId the unique serial number of the message
-     */
+    Return the owner of a message.
+    
+    @param messageId the unique serial number of the message
+    */
     function getMessageOwner(uint256 messageId) public view returns (address) {
         MessageCompleteData memory singleMessage = messageCompleteData[
             messageId
@@ -154,11 +159,11 @@ contract MessageData {
     }
 
     /**
-     * Set a new owner of a message.
-     *
-     * @param messageId the unique serial number of the message
-     * @param newOwner the new owner of the message
-     */
+    Set a new owner of a message.
+    
+    @param messageId the unique serial number of the message
+    @param newOwner the new owner of the message
+    */
     function setMessageOwner(
         uint256 messageId,
         address newOwner
@@ -178,10 +183,11 @@ contract MessageData {
     }
 
     /**
-     * Return the total number of messages stored as a blockchain state.
-     *
-     * @return messageIdCounter the current value of the counter of the unique serial Id for the messages
-     */
+    Return the total number of messages stored as a blockchain state.
+    
+    @return messageIdCounter the current value of the counter of the unique
+    serial Id for the messages
+    */
     function totalNumberOfStoredMessages()
         public
         view
@@ -192,21 +198,22 @@ contract MessageData {
     }
 
     /**
-     * Add a like to a message/tweet.
-     *
-     * @param messageId the Id (unique serial identifier) of the liked message/tweet.
-     */
+    Add a like to a message/tweet.
+    
+    @param messageId the Id (unique serial identifier) of the liked tweet.
+    */
     function addLike(uint256 messageId) public {
         numberOfLikes[messageId] += 1;
     }
 
     /**
-     * Add a message to an account.
-     *  Sets the account as the owner of the message.
-     *
-     * @param ownerAddress the address of the account to which add the message.
-     * @param messageId the Id (unique serial identifier) of themessage/tweet.
-     */
+    Add a message to an account.
+    
+    - Sets the account as the owner of the message.
+    
+    @param ownerAddress the address of the account to which add the message.
+    @param messageId the Id (unique serial identifier) of themessage/tweet.
+    */
     function addMessage(address ownerAddress, uint256 messageId) public {
         ownedMessages[ownerAddress].push(messageId);
         /// Store the index of the new message in the new owner's array
@@ -216,17 +223,17 @@ contract MessageData {
     }
 
     /**
-     * Remove a message from an account.
-     *
-     * @dev Takes the last element of the array and copy its value to the index
-     * where the element to be removed is in. Then pop the last element since
-     * it has already been copied to another location in the array.
-     * @dev This technique ensures that the array keeps the correct length
-     * after removing an item.
-     *
-     * @param ownerAddress the address of the account to which add the message.
-     * @param messageId the Id (unique serial identifier) of themessage/tweet.
-     */
+    Remove a message from an account.
+    
+    @dev Takes the last element of the array and copy its value to the index
+    where the element to be removed is in. Then pop the last element since
+    it has already been copied to another location in the array.
+    @dev This technique ensures that the array keeps the correct length
+    after removing an item.
+    
+    @param ownerAddress the address of the account to which add the message.
+    @param messageId the Id (unique serial identifier) of themessage/tweet.
+    */
     function removeMessage(address ownerAddress, uint256 messageId) private {
         /// The index in the owner's array of the desired message to be removed
         uint256 index = messageIdIndex[ownerAddress][messageId];
@@ -243,15 +250,15 @@ contract MessageData {
     }
 
     /**
-     * Transfer a message from one accout to another.
-     *
-     * The currentOwner address has to be the owner of the message.
-     *
-     * @param currentOwner the address of the current owner of the message.
-     * @param newOwner the address of the account to which the message will be
-     * transferred to.
-     * @param messageId the Id (unique serial identifier) of the message.
-     */
+    Transfer a message from one accout to another.
+    
+    The currentOwner address has to be the owner of the message.
+    
+    @param currentOwner the address of the current owner of the message.
+    @param newOwner the address of the account to which the message will be
+    transferred to.
+    @param messageId the Id (unique serial identifier) of the message.
+    */
     function transferMessageOwnership(
         address currentOwner,
         address newOwner,
@@ -272,11 +279,11 @@ contract MessageData {
     }
 
     /**
-     * Publish a new message as an event
-     *
-     * @param messageComposer the address of the composer of the message
-     * @param messageBytes the bytes representation of a string for the message
-     */
+    Publish a new message as an event
+    
+    @param messageComposer the address of the composer of the message
+    @param messageBytes the bytes representation of a string for the message
+    */
     function publishMessage(
         address messageComposer,
         bytes memory messageBytes
