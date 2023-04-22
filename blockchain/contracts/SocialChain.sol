@@ -4,14 +4,14 @@ pragma solidity ^0.8.18;
 /// Import OpenZeppelin libraries
 import "../node_modules/@openzeppelin/contracts/security/Pausable.sol";
 /// Import the data smart contracts
-import "./MessageData.sol";
-import "./MessageToken.sol";
+import "./Data_Storage/MessageData.sol";
+import "./Data_Storage/MessageToken.sol";
 
 /**
  * @title Social Media Smart Contract
  * @author Fábio Benjovengo
  *
- * Smart contract to manage the messages like tweets in the blockchain.
+ * Smart contract to manage the messages/tweets in the blockchain.
  *
  * @dev the logic of the social media is separate from the smart contracts to
  * store the data for upgrade (migration) purposes
