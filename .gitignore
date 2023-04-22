@@ -18,6 +18,7 @@ typechain
 typechain-types
 .vscode
 ./client/src/work
+./blockchain/slither.db.json
 
 # Hardhat files
 cache

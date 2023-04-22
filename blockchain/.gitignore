@@ -6,6 +6,8 @@ typechain
 typechain-types
 package-lock.json
 
+.slither.db.json
+
 # Hardhat files
 cache
 artifacts
