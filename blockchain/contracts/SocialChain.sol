@@ -73,7 +73,8 @@ contract SocialChain is Pausable {
     Change the ownership of this smart contract
     
     @param newOwner the address of the new owner of this smart contract
-    @dev this function is used when migrating to another smart contract for the logic of the messaging platform
+    @dev this function is used when migrating to another smart contract for the
+    logic of the messaging platform
     */
     function changeOwner(address newOwner) public onlyOwner {
         require(
@@ -104,7 +105,8 @@ contract SocialChain is Pausable {
     
     @param messageId the unique serial number of the message to be fetched
     @return textMessage the message in bytes
-    @return timestamp the Unix Epoch time in which the message was stored in the blockchain
+    @return timestamp the Unix Epoch time in which the message was stored in the
+    blockchain
     @return composer the address of the composer of the message
     @return owner the address of the current owner of the message
     */
@@ -123,7 +125,8 @@ contract SocialChain is Pausable {
     /**
     Approves receiving the ownership of a certain tweet/message
     
-    @param messageId the Id of the tweet/message to be received by the msg.sender account
+    @param messageId the Id of the tweet/message to be received by the
+    msg.sender account
     */
     function requestMessageOwnership(uint256 messageId) public {
         recipientTweetApproval[msg.sender][messageId] = true;
@@ -132,7 +135,8 @@ contract SocialChain is Pausable {
     /**
     Cancel approval to receive the ownership of a certain tweet/message
     
-    @param messageId the Id of the tweet/message to be received by the msg.sender account
+    @param messageId the Id of the tweet/message to be received by the
+    msg.sender account
     */
     function cancelRequestMessageOwnership(uint256 messageId) public {
         recipientTweetApproval[msg.sender][messageId] = false;
@@ -141,16 +145,18 @@ contract SocialChain is Pausable {
     /**
     Approves receiving the ownership of a certain token for a tweet/message
     
-    @param tokenId the Id of the token tweet/message to be received by the msg.sender account
+    @param tokenId the Id of the token tweet/message to be received by the
+    msg.sender account
     */
     function requestTokenOwnership(uint256 tokenId) public {
         recipientTokenApproval[msg.sender][tokenId] = true;
     }
 
     /**
-    Cancel approval to receive the ownership of a certain token for a tweet/message
+    Cancel approval to receive the ownership of a certain token for a tweet.
     
-    @param tokenId the Id of the token tweet/message to be received by the msg.sender account
+    @param tokenId the Id of the token tweet/message to be received by the
+    msg.sender account
     */
     function cancelRequestTokenOwnership(uint256 tokenId) public {
         recipientTokenApproval[msg.sender][tokenId] = false;
