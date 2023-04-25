@@ -4,14 +4,21 @@ void main() => runApp(MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Blockchain Twitter.',
+            'TwiChain',
             style: TextStyle(
               letterSpacing: 2.0,
               fontFamily: 'Futura',
               fontWeight: FontWeight.bold,
             ),
           ),
+          leading: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Image.asset(
+              "assets/DApp_icon_white.png",
+            ),
+          ),
           centerTitle: true,
+          backgroundColor: const Color.fromRGBO(34, 28, 34, 1),
         ),
         body: const Center(
           child: Text(
@@ -23,6 +30,7 @@ void main() => runApp(MaterialApp(
             ),
           ),
         ),
+        backgroundColor: const Color.fromRGBO(234, 228, 234, 1),
         floatingActionButton: FloatingActionButton.extended(
           label: const Text("Click me"),
           onPressed: () {},
