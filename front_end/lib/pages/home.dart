@@ -22,8 +22,9 @@ class Home extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromRGBO(26, 26, 36, 1),
+        backgroundColor: const Color.fromRGBO(26, 26, 34, 1),
       ),
+      backgroundColor: const Color.fromRGBO(42, 42, 46, 1),
       body: const Center(
         child: Text(
           'Hello, World!',
@@ -34,14 +35,39 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: const Color.fromRGBO(234, 228, 234, 1),
       floatingActionButton: FloatingActionButton.extended(
         label: const Text("New broadcast"),
         onPressed: () {},
       ),
       bottomNavigationBar: Container(
-        height: 40.0,
+        height: 50.0,
         color: const Color.fromRGBO(26, 26, 36, 1),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.feed, color: Colors.white),
+                Text('News', style: TextStyle(color: Colors.white)),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.groups, color: Colors.white),
+                Text('Favorites', style: TextStyle(color: Colors.white)),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.settings, color: Colors.white),
+                Text('Settings', style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
