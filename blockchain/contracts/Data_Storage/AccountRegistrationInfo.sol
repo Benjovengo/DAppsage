@@ -124,4 +124,42 @@ contract AccountRegistrationInfo {
         /// Emit event for publishing a message
         emit createAccountEvent(newAccountId.current());
     }
+
+    /**
+    Fetch the latest user information from the blockchain.
+    
+    @param accountID the unique serial number of the message to be fetched
+    
+    @return userAddress The Ethereum address of the user account.
+    @return firstName The first name of the user as a byte array.
+    @return lastName The last name of the user as a byte array.
+    @return email The email address of the user as a byte array.
+    @return profilePictureURL The URL of the user's profile picture stored in
+    IPFS as a byte array.
+    @return timestamp Unix Epoch of the time of the registration
+    */
+    function fetchUserData(
+        uint256 accountID
+    )
+        public
+        view
+        returns (
+            address,
+            bytes memory,
+            bytes memory,
+            bytes memory,
+            bytes memory,
+            uint256
+        )
+    {
+        AccountData memory userDataStruct = accountsSignInData[accountID];
+        return (
+            userDataStruct.userAddress,
+            userDataStruct.firstName,
+            userDataStruct.lastName,
+            userDataStruct.email,
+            userDataStruct.profilePictureURL,
+            userDataStruct.timestamp
+        );
+    }
 }
