@@ -48,10 +48,11 @@ contract AccountRegistrationInfo {
         bytes email;
         bytes profilePictureURL;
         uint256 timestamp;
+        address userAddress;
     }
     // Store the sign-in information for a user
-    //     - the key for the mapping is the account address
-    mapping(address => AccountData) private accountsSignInData;
+    //     - the key for the mapping is the ID of the information
+    mapping(uint256 => AccountData) private accountsSignInData;
     // Array of sign-in information IDs for each user (address)
     // Each time an account is added or updated, a new ID is generated for the
     // struct containing the data, which is then stored in a mapping using the
@@ -111,12 +112,13 @@ contract AccountRegistrationInfo {
             lastName: lastName,
             email: email,
             profilePictureURL: profilePictureURL,
-            timestamp: block.timestamp
+            timestamp: block.timestamp,
+            userAddress: userAddress
         });
         /// Increment the number of messages
         newAccountId.increment();
         /// Store the registration data
-        accountsSignInData[userAddress] = accountDataStruct;
+        accountsSignInData[newAccountId.current()] = accountDataStruct;
         /// Add the ID to the list of data modifications to the user
         accountsModifications[userAddress].push(newAccountId.current());
         /// Emit event for publishing a message
