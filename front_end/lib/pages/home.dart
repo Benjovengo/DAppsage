@@ -7,22 +7,23 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(26, 26, 34, 1),
         title: const Text(
           'BlockCast News',
           style: TextStyle(
             letterSpacing: 2.0,
-            fontFamily: 'Futura',
-            fontWeight: FontWeight.bold,
+            fontFamily: 'FuturaHeavy',
+            fontSize: 25,
+            // fontWeight: FontWeight.w600,
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(8.0),
           child: Image.asset(
             "assets/DApp_icon_white.png",
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromRGBO(26, 26, 34, 1),
       ),
       backgroundColor: const Color.fromRGBO(42, 42, 46, 1),
       body: const Center(

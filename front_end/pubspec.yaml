@@ -78,8 +78,9 @@ flutter:
         - asset: fonts/Futura_Light_BT.ttf
         - asset: fonts/Futura_Light_Italic_BT.ttf
           style: italic
+    - family: FuturaHeavy
+      fonts:
         - asset: fonts/Futura_Heavy_BT.ttf
-          weight: 600
     - family: UbuntuMono
       fonts:
         - asset: fonts/UbuntuMono_Regular.ttf
